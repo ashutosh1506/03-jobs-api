@@ -13,12 +13,13 @@ const jobsRouter = require("./routes/jobs");
 //error handler
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const notFound = require("./middleware/not-found");
+const authMiddleWare = require("./middleware/authentication");
 //middlwares
 app.use(express.json());
 
 //routes
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/jobs", jobsRouter);
+app.use("/api/v1/jobs", authMiddleWare, jobsRouter);
 
 app.use(errorHandlerMiddleware);
 app.use(notFound);
